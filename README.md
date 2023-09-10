@@ -25,3 +25,7 @@ If you need to specify a timezone for your clock, you can use the `-tz` flag (e.
 What else would I set as my GitHub status emoji? :dart:?
 
 Please.
+
+## How It Works
+
+I wrote a [brief post on how this works](https://hjr265.me/blog/my-github-status-is-a-clock/) on my blog.
