@@ -64,6 +64,7 @@ func main() {
 }
 
 func timeToEmoji(t time.Time) string {
+	t = t.Add(10 * time.Minute)
 	h := t.Hour()
 	if h > 12 {
 		h -= 12
@@ -95,6 +96,7 @@ var hourWord = map[int]string{
 }
 
 func timeToMessage(t time.Time) string {
+	t = t.Add(10 * time.Minute)
 	h := t.Hour()
 	if h > 12 {
 		h -= 12
@@ -111,6 +113,7 @@ func timeToMessage(t time.Time) string {
 }
 
 func sleepDuration(t time.Time) time.Duration {
+	t = t.Add(10 * time.Minute)
 	m := t.Minute()
 	if m < 30 {
 		return time.Duration(30-m) * time.Minute
