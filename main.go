@@ -65,19 +65,14 @@ func main() {
 
 func timeToEmoji(t time.Time) string {
 	t = t.Add(10 * time.Minute)
-	h := t.Hour()
-	if h > 12 {
-		h -= 12
-	}
+	h := t.Hour() % 12
 	if h == 0 {
 		h = 12
 	}
-	m := t.Minute()
-	m = (m / 30) * 30
-	if m == 0 {
+	if t.Minute() < 30 {
 		return fmt.Sprintf(":clock%d:", h)
 	}
-	return fmt.Sprintf(":clock%d%d:", h, m)
+	return fmt.Sprintf(":clock%d30:", h)
 }
 
 var hourWord = map[int]string{
@@ -97,16 +92,11 @@ var hourWord = map[int]string{
 
 func timeToMessage(t time.Time) string {
 	t = t.Add(10 * time.Minute)
-	h := t.Hour()
-	if h > 12 {
-		h -= 12
-	}
+	h := t.Hour() % 12
 	if h == 0 {
 		h = 12
 	}
-	m := t.Minute()
-	m = (m / 30) * 30
-	if m == 0 {
+	if t.Minute() < 30 {
 		return fmt.Sprintf("%s o'clock", hourWord[h])
 	}
 	return fmt.Sprintf("Half past %s", strings.ToLower(hourWord[h]))
