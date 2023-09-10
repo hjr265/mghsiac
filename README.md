@@ -11,6 +11,7 @@ It turned [my GitHub status into a clock](https://github.com/hjr265).
 Create a classic personal access token with the "user" scope for your GitHub account and run `mghsiac` with it.
 
 ```
+go install github.com/hjr265/mghsiac@latest
 GITHUB_TOKEN=... ./mghsiac
 ```
 
