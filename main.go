@@ -105,8 +105,12 @@ func timeToMessage(t time.Time) string {
 func sleepDuration(t time.Time) time.Duration {
 	t = t.Add(10 * time.Minute)
 	m := t.Minute()
+	var target int
 	if m < 30 {
-		return time.Duration(30-m) * time.Minute
+		target = 30
+	} else {
+		target = 60
 	}
-	return time.Duration(60-m) * time.Minute
+	next := t.Truncate(time.Minute).Add(time.Duration(target-m) * time.Minute)
+	return next.Sub(t.Add(-10 * time.Minute))
 }
