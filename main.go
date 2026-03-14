@@ -21,11 +21,26 @@ var (
 func main() {
 	flag.Parse()
 
+	token := os.Getenv("GITHUB_TOKEN")
+	if token == "" {
+		log.Fatal("GITHUB_TOKEN is not set")
+	}
+
 	src := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
+		&oauth2.Token{AccessToken: token},
 	)
 	httpclient := oauth2.NewClient(context.Background(), src)
 	client := githubv4.NewClient(httpclient)
+
+	var viewer struct {
+		Viewer struct {
+			Login graphql.String
+		}
+	}
+	if err := client.Query(context.Background(), &viewer, nil); err != nil {
+		log.Fatalf("Invalid GITHUB_TOKEN: %s", err)
+	}
+	log.Printf("Authenticated as %s", viewer.Viewer.Login)
 
 	for {
 		now := time.Now()
