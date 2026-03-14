@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -14,13 +13,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-var (
-	flagTZ = flag.String("tz", "", "timezone")
-)
-
 func main() {
-	flag.Parse()
-
 	token := os.Getenv("GITHUB_TOKEN")
 	if token == "" {
 		log.Fatal("GITHUB_TOKEN is not set")
@@ -43,9 +36,9 @@ func main() {
 	log.Printf("Authenticated as %s", viewer.Viewer.Login)
 
 	var loc *time.Location
-	if *flagTZ != "" {
+	if tz := os.Getenv("TZ"); tz != "" {
 		var err error
-		loc, err = time.LoadLocation(*flagTZ)
+		loc, err = time.LoadLocation(tz)
 		if err != nil {
 			log.Fatalf("Could not load timezone data: %s", err)
 		}

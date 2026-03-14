@@ -21,17 +21,11 @@ Or, with Docker:
 docker run -d --restart unless-stopped -e GITHUB_TOKEN=... ghcr.io/hjr265/mghsiac
 ```
 
-To specify a timezone with Docker, use the `-tz` flag:
-
-```
-docker run -d --restart unless-stopped -e GITHUB_TOKEN=... ghcr.io/hjr265/mghsiac -tz=Asia/Dhaka
-```
-
 MGHSIAC, when run, will update the user status emoji and then sleep until the next update is necessary.
 
 Leave it running in the background to turn your GitHub status emoji into a clock.
 
-If you need to specify a timezone for your clock, you can use the `-tz` flag (e.g. `-tz=Asia/Dhaka`).
+If you need to specify a timezone for your clock, you can use the `TZ` environment variable (e.g. `TZ=Asia/Dhaka`).
 
 ## Why?
 
