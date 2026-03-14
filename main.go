@@ -51,6 +51,15 @@ func main() {
 		}
 	}
 
+	var m struct {
+		ChangeUserStatus struct {
+			Status struct {
+				Emoji   graphql.String
+				Message graphql.String
+			}
+		} `graphql:"changeUserStatus(input: $input)"`
+	}
+
 	for {
 		now := time.Now()
 		if loc != nil {
@@ -61,14 +70,6 @@ func main() {
 		message := timeToMessage(now)
 		log.Printf("Updating status to %s (%s)", emoji, message)
 
-		m := struct {
-			ChangeUserStatus struct {
-				Status struct {
-					Emoji   graphql.String
-					Message graphql.String
-				}
-			} `graphql:"changeUserStatus(input: $input)"`
-		}{}
 		err := client.Mutate(context.Background(), &m, githubv4.ChangeUserStatusInput{
 			Emoji:   githubv4.NewString(githubv4.String(emoji)),
 			Message: githubv4.NewString(githubv4.String(message)),
