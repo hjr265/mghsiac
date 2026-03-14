@@ -42,13 +42,18 @@ func main() {
 	}
 	log.Printf("Authenticated as %s", viewer.Viewer.Login)
 
+	var loc *time.Location
+	if *flagTZ != "" {
+		var err error
+		loc, err = time.LoadLocation(*flagTZ)
+		if err != nil {
+			log.Fatalf("Could not load timezone data: %s", err)
+		}
+	}
+
 	for {
 		now := time.Now()
-		if *flagTZ != "" {
-			loc, err := time.LoadLocation(*flagTZ)
-			if err != nil {
-				log.Fatalf("Could not load timezone data: %s", err)
-			}
+		if loc != nil {
 			now = now.In(loc)
 		}
 
